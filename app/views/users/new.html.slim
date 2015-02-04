@@ -1,0 +1,35 @@
+.container
+    - if @user.errors.any?
+    	div.error_messages
+    		h2 invalid
+    		ul 
+    			- for message in @user.errors.full_messages
+    				li =message
+    .row
+        = form_for @user do |f|
+        	div.field
+            	= f.label :username
+            	br
+            	= f.text_field(:username, :class=>'form-control')
+        	div.field
+            	= f.label :email
+            	br
+                = f.text_field(:email, :class=>'form-control')
+        	div.field
+            	= f.label :password
+            	br
+                = f.text_field(:password, :class=>'form-control')
+        	div.field
+            	= f.label :password_confirmation
+            	br
+                = f.text_field(:password_confirmation, :class=>'form-control')
+            div.field
+                = f.label :firstname
+                br
+                = f.text_field(:firstname, :class=>'form-control')
+            div.field
+                = f.label :lastname
+                br
+                = f.text_field(:lastname, :class=>'form-control')
+        	div.actions
+            	= f.submit

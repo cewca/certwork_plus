@@ -1,0 +1,20 @@
+nav#top-navbar.navbar.navbar-default.navbar-fixed-top
+  div.container
+  	a href=root_url
+    	= image_tag("en/logo_CertWork+.png", class:"branding-image") 
+    - if content_for?(:profile_image) 
+    	span.hidden-xs
+    		= yield :profile_image
+    div#language_switch.pull-right.hidden-xs
+    	== render 'layouts/language_switch'
+
+    button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-collapse"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+    div.collapse.navbar-collapse
+    	.visible-xs
+    		- if content_for?(:sub_menu)
+    			= yield :sub_menu
+

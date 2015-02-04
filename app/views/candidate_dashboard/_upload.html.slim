@@ -1,0 +1,46 @@
+#upload.tab-pane.fade
+	.row
+		.table-reponsive
+			table.table.table-bordered
+				thead
+					tr
+						th.col-md-4 performance Indicator
+						th.col-md-3 Evidence 
+						th.col-md-2 Status
+						th.col-md-1 File Upload
+						th.col-md-2 Comments
+				tbody data-bind='{foreach: evidences}'
+					tr   
+						td	data-bind="text: indicator_name"
+						td 	
+							a data-bind="attr:{href: '/assessment_indicators/'+current_user_id+"?key="+obj_key()}" target="_blank"
+								span data-bind="text: evidence_filename"
+						td 	data-bind="text: status"
+						td  
+							ul.actions
+								li data-bind='visible: !evidence_filename()'
+									a href="#" data-bind="click: $parent.upload_file" 
+										i.glyphicon.glyphicon-paperclip
+								
+								li data-bind='visible: evidence_filename'
+									a href="#" data-bind="click: $parent.delete_file" 
+										i.glyphicon.glyphicon-remove
+	
+						td 	data=bind="text:comments"
+
+	#file_upload_modal.modal.fade tabindex="-1" role="dialog" aria-labelledby="file upload from" aria-hidden="true" 
+		.modal-dialog 
+		    .modal-content
+		    	.modal-header data-bind="with: selected_indicator"
+		        	button.close type="button" data-dismiss="modal" aria-label="Close"
+		        		span aria-hidden="true" 
+		        	h4.modal-title#evidence_options data-bind="text: indicator_name"
+		        	small#evidence_option data-bind="text: evidence_option"
+			    .modal-body
+					=form_tag("/upload", method: :POST, multipart: true, class:"form-horizontal directUpload", id:"evidence_upload_form") 
+						.form-group
+				        	input.file_field type="file" id="file_upload_input" name="file_upload" 
+					#file_upload_foot
+						button#file_upload_btn.btn.btn-primary upload
+
+

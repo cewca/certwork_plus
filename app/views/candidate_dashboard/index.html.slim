@@ -1,0 +1,55 @@
+- content_for :profile_image do
+  -if current_user.avatar.url
+    = image_tag current_user.avatar.url(:thumb)
+  -else
+    span.avata.default_avata.glyphicon.glyphicon-user aria-hidden="true"
+	   
+
+- content_for :sub_menu do
+    ul.dashboard_tabs.tabs.nav.nav-tabs role="tablist"
+    	li class="active"
+        	a href="#home" role="tab" data-toggle="tab"
+        		span.tab-icon.glyphicon.glyphicon-home
+            	span.tab-text Home
+    	li
+      		a href="#profile" role="tab" data-toggle="tab"
+      			span.tab-icon.glyphicon.glyphicon-star
+          		span.tab-text Profile
+    	li 
+        	a href="#inbox" role="tab" data-toggle="tab"
+        		span.tab-icon.glyphicon.glyphicon-envelope
+                span.tab-text Inbox
+                span#unread_badge.badge.pull-right data-bind="{text: unread, visible: unread() >0}"
+    	li
+      		a href="#plan" role="tab" data-toggle="tab"
+      			span.tab-icon.glyphicon.glyphicon-calendar
+          		span.tab-text plan
+    	li
+      		a href="#upload" role="tab" data-toggle="tab"
+      			span.tab-icon.glyphicon.glyphicon-open
+          		span.tab-text upload
+- content_for :javascript do
+    script
+      |
+        var messages_from=#{raw(current_user.messages_from.to_json(methods: ['to_username','from_username']))}
+        var messages_to=#{raw(current_user.messages_to.to_json(methods: ['to_username','from_username']))}
+        var assessment_plan =#{raw(current_user.assessment_plans.first.to_json(:methods=>['assessment_indicators']))}
+        
+        var current_user_id="#{current_user.id}"
+        var s3_direct_post_url = "#{@s3_direct_post.url}"
+        var s3_direct_post_host = "#{@s3_direct_post.url.host}/"
+        var s3_direct_post_formdata = #{@s3_direct_post.fields.to_json.html_safe}
+    = javascript_include_tag('candidate_dashboard', 'data-turbolinks-track' => true)
+      
+#candidate_dashboard.dashboard.container
+	header.hidden-xs
+		h3 #{current_user.firstname} #{current_user.lastname}
+		== yield :sub_menu
+    .tab-content
+      == render "home"
+      == render "profile"
+      == render "inbox"
+      == render "plan"
+      == render "upload"
+
+

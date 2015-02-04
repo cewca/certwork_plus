@@ -1,0 +1,69 @@
+#inbox.tab-pane.fade
+	.row
+		#sidebar-wrapper.col-md-2
+			ul.sidebar-wrapper
+				li
+					a href='#'	data-bind='{css: {disabled: checked_messages().length != 1 },click:onReply}' reply
+				li
+					a href='#'	data-bind='{css: {disabled: checked_messages().length != 1 }, click:onForward}' forward
+				li
+					a href='#'	data-bind='{css: {disabled: checked_messages().length==0}, click: delete_messages}' delete
+				li
+					a href='#' data-bind='click: onCompose' compose
+		.col-md-10
+			.table-reponsive
+				table.table.table_default
+					thead
+						tr
+							th
+							th from
+							th subject
+							th received
+					tbody data-bind='{foreach: messages}'
+						tr  data-bind="css: {new_message: !read()}" 
+							td
+								input type="checkbox" data-bind="checked: checked"
+							td data-bind='text:from_username'
+							td 
+								a href="#" data-bind='{text: subject, click: $parent.onOpen}'
+							td data-bind='text: localTime()'
+
+		#message_modal.modal.fade tabindex="-1" role="dialog" aria-labelledby="message display" aria-hidden="true"
+		  .modal-dialog data-bind='with: selected_message'
+		    .modal-content
+		    	.modal-header
+		        	button.close type="button" data-dismiss="modal" aria-label="Close"
+		        		span aria-hidden="true" 
+		        	h3.modal-title data-bind="text: subject"
+		        	.message-info
+		        		span.lable sender:
+						span data-bind='text: from_username'
+						span.lable to:
+						span data-bind='text: to_username'
+		        		span.pull-right data-bind="text: localTime()"
+		      	.modal-body
+
+		      		p data-bind="text: body"
+		      	.modal-footer
+		        	button type="button" class="btn btn-default" data-dismiss="modal" Close
+		#compose_modal.modal.fade tabindex="-1" role="dialog" aria-labelledby="message compose" aria-hidden="true"
+
+		  	.modal-dialog data-bind='with: draft_message'
+		    	.modal-content
+			      	.modal-body
+			      		.errors
+						form
+							.form-group
+						        label for="subject" class="control-label" Subject:
+						        input.form-control data-bind="value: subject,, valueUpdate: 'afterkeydown'" type="text" class="" id="subject" name="subject" required=true    
+						    .form-group
+						        label for="to" class="control-label" Recipient:
+						        input.form-control data-bind="value: to,, valueUpdate: 'afterkeydown'" type="text" class="" id="to" name="to" required=true
+
+						    .form-group
+						        label for="message-text" class="control-label" Message
+						        textarea class="form-control" data-bind="value: body, valueUpdate: 'afterkeydown'" id="body" name="body" required=true
+			      		
+			      	.modal-footer
+			        	button type="button" class="btn btn-default" data-bind="click: cancel" Cancel
+			        	button type="button" class="btn btn-primary" data-bind="click: send" Send

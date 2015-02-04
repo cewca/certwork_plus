@@ -1,0 +1,38 @@
+#profile.tab-pane.fade
+	.row
+		.col-md-12
+			=form_tag(user_path(current_user.id), method: :put, multipart: true, class:"form-horizontal", id:"profile_editor") do
+                .form-group
+                    label.col-sm-2.control-label for="profile_picture" Profile picture
+                    .col-sm-6.profile_picture
+                        input type="file" data-filename-placement="inside" id="avatar" name="avatar" accept="image/*"
+				.form-group
+    				label.col-sm-2.control-label for="firstname" First name
+    				.col-sm-6
+    					input.form-control name="firstname" id="firstname" value=current_user.firstname   required=true 
+    			.form-group
+    				label.col-sm-2.control-label for="lastname" Last name
+    				.col-sm-6
+    					input.form-control  name = "lastname" id="lastname" value=current_user.lastname   required =true
+				.form-group
+    				label.col-sm-2.control-label for="email" Email address
+    				.col-sm-6
+    					input.form-control type="email" name="email" id="email" value=current_user.email   required =true
+                .form-group
+                    label.col-sm-2.control-label for="password" Current password
+                    .col-sm-6
+                        input.form-control  id="password" name="password" type="password"
+    			.form-group
+    				label.col-sm-2.control-label for="new_password" New password
+    				.col-sm-6
+    					input.form-control  id="new_password" name="new_password" type="password"
+    			.form-group
+    				label.col-sm-2.control-label for="password_confirmation" Confirm password
+    				.col-sm-6
+    					input.form-control  id="password_confirmation" name="password_confirmation" type="password"
+                .col-sm-8
+                    .progress.hidden
+                        .progress-bar role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" updating profile...
+
+                    button.pull-right.btn.btn-primary type="submit" id="update_profile" update
+

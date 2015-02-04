@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    /[if lt IE 9]
+      | <script type='text/javascript' src='/html5shiv.min.js'></script>
+ 
+    title
+      = content_for?(:title) ? yield(:title) : 'P101'
+    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'P101'}"
+    == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
+    == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == csrf_meta_tags
+  body
+    header
+      == render 'layouts/navigation'
+    main[role="main"]
+      == render 'layouts/messages'
+      == yield
+    - if content_for?(:javascript)
+      = yield :javascript
+
+    /[if lt IE 9]
+      | <script type='text/javascript' src='/respond.min.js'></script>
+ 
+

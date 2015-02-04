@@ -1,0 +1,31 @@
+#formContainer {
+  float: none;
+
+  form#login_form {
+    input {
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    };
+
+
+    input:last-of-type {
+
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    button[type=submit] {
+      display: inline-block;
+      vertical-align: top;
+    }
+    div.options {
+      display: inline-block;
+      margin-left:20px;
+      a {
+        margin-bottom:5px;
+      }
+    }
+  }
+}

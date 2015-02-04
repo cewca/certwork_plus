@@ -1,0 +1,24 @@
+#plan.tab-pane.fade
+	.row
+		.table-reponsive
+			table.table.table-bordered
+				thead
+					tr
+						th.col-md-5 Performance Indicator
+						th.col-md-3 Evidence Options
+						th.col-md-2 Date
+						th.col-md-2 Comments
+				tbody data-bind='{foreach: indicators}'
+					tr   
+						td	data-bind="text: name"
+						td 	
+							select data-bind="options: $parent.availableOptions, 					optionsText: 'name',
+                      		value: selectedOption,
+                      		optionsCaption: 'Choose...'"
+						td 
+							input data-bind="datepicker:  due_date"
+						
+						td data-bind ="text: comment"
+		.footer
+					button.btn.btn-primary data-bind="click: save" Save
+					button.btn.btn-default data-bind="click: submit" Submit
