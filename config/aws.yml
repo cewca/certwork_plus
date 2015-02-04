@@ -9,4 +9,4 @@ test:
   <<: *defaults
   
 production:
-  bucket: "p1012015"
+  <<: *defaults
