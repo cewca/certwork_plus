@@ -1,6 +1,5 @@
 defaults: &defaults
-  access_key_id: "AKIAJM766EMS3GJJ7I5Q"
-  secret_access_key: "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"
+
   bucket: "p1012015"
 development:
   <<: *defaults
